@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
-class Theater {
+class TheaterService {
 
     private val hiddenSeats = mutableListOf<Seat>()
 
@@ -41,5 +41,9 @@ class Theater {
 
 	val seats
     get() = hiddenSeats.toList()
+
+    fun find(num: Int, row: Char): Seat {
+        return seats.filter{ it.row == row && it.num == num }.first()
+    }
 
 }
