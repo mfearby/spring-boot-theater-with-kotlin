@@ -1,5 +1,6 @@
 package com.marcfearby.theater.control
 
+import com.marcfearby.theater.data.SeatRepository
 import com.marcfearby.theater.services.BookingService
 import com.marcfearby.theater.services.TheaterService
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,6 +21,9 @@ class MainController {
     @Autowired
     lateinit var bookingService: BookingService
 
+    @Autowired
+    lateinit var seatRepository: SeatRepository
+
     @RequestMapping("")
     fun homePage() : ModelAndView {
         return ModelAndView("seatBooking", "bean", CheckAvailabilityBackingBean())
@@ -32,6 +36,14 @@ class MainController {
         bean.result = "Seat $selectedSeat is " + if (result) "available" else "booked"
         return ModelAndView("seatBooking", "bean", bean)
     }
+
+    // Use only once to setup the initial table with data
+//    @RequestMapping("bootstrap")
+//    fun createInitialData(): ModelAndView {
+//        val seats = theaterService.seats
+//        seatRepository.saveAll(seats)
+//        return homePage()
+//    }
 
 }
 
