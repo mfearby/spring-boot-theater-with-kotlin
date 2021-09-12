@@ -1,5 +1,6 @@
 package com.marcfearby.theater.control
 
+import com.marcfearby.theater.data.PerformanceRepository
 import com.marcfearby.theater.data.SeatRepository
 import com.marcfearby.theater.services.BookingService
 import com.marcfearby.theater.services.TheaterService
@@ -24,6 +25,9 @@ class MainController {
     @Autowired
     lateinit var seatRepository: SeatRepository
 
+    @Autowired
+    lateinit var performanceRepository: PerformanceRepository
+
     @RequestMapping("")
     fun homePage() : ModelAndView {
         return ModelAndView("seatBooking", "bean", CheckAvailabilityBackingBean())
@@ -37,7 +41,7 @@ class MainController {
         return ModelAndView("seatBooking", "bean", bean)
     }
 
-    // Use only once to setup the initial table with data
+//    // Use only once to setup the initial table with data
 //    @RequestMapping("bootstrap")
 //    fun createInitialData(): ModelAndView {
 //        val seats = theaterService.seats
