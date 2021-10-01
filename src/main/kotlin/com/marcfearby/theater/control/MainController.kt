@@ -42,7 +42,7 @@ class MainController {
         return ModelAndView("seatBooking", model)
     }
 
-    @RequestMapping("checkAvailability", method=arrayOf(RequestMethod.POST))
+    @RequestMapping("checkAvailability", method = [RequestMethod.POST])
     fun checkAvailability(bean: CheckAvailabilityBackingBean): ModelAndView {
         // was this: theaterService.find(bean.selectedSeatNum, bean.selectedSeatRow)
         val selectedSeat: Seat = bookingService.findSeat(bean.selectedSeatNum, bean.selectedSeatRow)!!
@@ -50,8 +50,12 @@ class MainController {
 
         bean.seat = selectedSeat
         bean.performance = selectedPerformance
-
         bean.available = bookingService.isSeatFree(selectedSeat, selectedPerformance)
+
+        //if (!bean.available!!)
+        bean.available?.takeIf { !it }.let {
+            bean.booking = bookingService.findBooking(selectedSeat, selectedPerformance)
+        }
 
 //        bean.result = "Seat $selectedSeat is " + if (result) "available" else "booked"
 
@@ -65,6 +69,12 @@ class MainController {
         )
 
         return ModelAndView("seatBooking", model)
+    }
+
+    @RequestMapping("booking", method = [RequestMethod.POST])
+    fun bookASeat(bean: CheckAvailabilityBackingBean): ModelAndView {
+        val booking = bookingService.reserveSeat(bean.seat!!, bean.performance!!, bean.customerName)
+        return ModelAndView("bookingConfirmed", "booking", booking)
     }
 
 //    // Use only once to setup the initial table with data
