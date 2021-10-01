@@ -1,5 +1,6 @@
 package com.marcfearby.theater.data
 
+import com.marcfearby.theater.domain.Booking
 import com.marcfearby.theater.domain.Performance
 import com.marcfearby.theater.domain.Seat
 import org.springframework.data.jpa.repository.JpaRepository
@@ -7,3 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface SeatRepository: JpaRepository<Seat, Long>
 
 interface PerformanceRepository: JpaRepository<Performance, Long>
+
+interface BookingRepository: JpaRepository<Booking, Long>

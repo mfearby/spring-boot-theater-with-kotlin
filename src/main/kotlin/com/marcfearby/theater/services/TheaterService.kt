@@ -40,7 +40,7 @@ class TheaterService {
     }
 
 	val seats
-    get() = hiddenSeats.toList()
+        get() = hiddenSeats.toList()
 
     fun find(num: Int, row: Char): Seat {
         return seats.filter{ it.row == row && it.num == num }.first()
